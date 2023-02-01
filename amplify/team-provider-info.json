@@ -1,0 +1,29 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-poohosting-dev-191717-authRole",
+      "UnauthRoleArn": "arn:aws:iam::283148374727:role/amplify-poohosting-dev-191717-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::283148374727:role/amplify-poohosting-dev-191717-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-poohosting-dev-191717-deployment",
+      "UnauthRoleName": "amplify-poohosting-dev-191717-unauthRole",
+      "StackName": "amplify-poohosting-dev-191717",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:283148374727:stack/amplify-poohosting-dev-191717/9bf1f180-a219-11ed-89f7-0a7fedec1737",
+      "AmplifyAppId": "d250uvk5vaaci8"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d250uvk5vaaci8",
+          "type": "manual"
+        }
+      },
+      "auth": {
+        "poohostingcc568e94": {}
+      },
+      "storage": {
+        "poostorage": {}
+      }
+    }
+  }
+}

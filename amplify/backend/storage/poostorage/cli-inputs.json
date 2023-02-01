@@ -1,0 +1,14 @@
+{
+  "resourceName": "poostorage",
+  "policyUUID": "e9b66247",
+  "bucketName": "poohosting046ee11e4ba84434800c97c7e94aac51",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
