@@ -1,0 +1,12 @@
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type Todo @model {
+  id: ID!
+  name: Int!
+  lat: Float!
+  lng: Float!
+  acc_x : Float!
+  acc_y : Float!
+  acc_z : Float!
+  image: String
+}

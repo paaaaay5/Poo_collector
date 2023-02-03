@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { UserCount } from './App'
 
 const GyroSensor = () => {
+    //const UserContext = useContext(UserContext)
     const [tilt, setTilt] = useState({ x: 0, y: 0, z: 0 });
-
     useEffect(() => {
     window.addEventListener('deviceorientation', handleOrientation,true);
     return () => {
@@ -16,9 +17,9 @@ const GyroSensor = () => {
         y: event.gamma,
         z: event.alpha
     });
-    console.log(event.beta)
-    console.log(event.gamma)
-    console.log(event.alpha)
+    UserCount.acc_x = event.beta;
+    UserCount.acc_y = event.gamma;
+    UserCount.accc_z = event.alpha;
     };
 
     return (

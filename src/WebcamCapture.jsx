@@ -1,10 +1,32 @@
 import React, { useState } from 'react';
 import Webcam from "react-webcam";
+import {Button} from '@aws-amplify/ui-react';
+//import { listNotes } from './graphql/queries';
+import { API ,Storage} from 'aws-amplify';
+import { createTodo as createNoteMutation, deleteTodo as deleteNoteMutation } from './graphql/mutations';
+import { useContext} from 'react'
+import { UserCount } from './App'
 
-const WebcamCapture = () => {
+const WebcamCapture = (props) => {
+
     const [imageSrc, setImageSrc] = useState(null);
+    const [sensor_Memo, setValues] = useState({
+        lat : 0,
+        lng : 0,
+        acc_x : 0,
+        acc_y : 0,
+        acc_z : 0
+    })
+
     const webcamRef = React.useRef(null);
 
+    //captureボタンが押された際の関数
+    const use_Sensor = () => {
+        capture();
+        get_sensor_values();
+    }
+
+    //レンダリングの負荷を抑える
     const capture = React.useCallback(
     () => {
         const imageSrc = webcamRef.current.getScreenshot();
@@ -13,12 +35,39 @@ const WebcamCapture = () => {
     [webcamRef]
     );
 
+    //センサの値を取得
+    function get_sensor_values () {
+        setValues({
+            lat : UserCount.lat || 0,
+            lng : UserCount.lng || 0,
+            acc_x : UserCount.acc_x || 0,
+            acc_y : UserCount.acc_y || 0,
+            acc_z : UserCount.acc_z || 0
+        })
+    }
+
+    //DBとSTORGEにPOST
     const send_server = () => {
-        //サーバーに画像を送る処理を追加
-        async function send () {
-            setImageSrc(null);
+        async function send () {      
+            if (imageSrc) {
+                let now = new Date();
+                let file_name = now.getFullYear() + '_' + (now.getMonth() + 1) + '_' + 
+                                now.getDate() + '_' + now.getHours() + '_' + now.getMinutes() + '_' + props.user.username + '.jpeg'
+                let formData = { name: 0, lat: sensor_Memo.lat, lng: sensor_Memo.lng, 
+                    acc_x: sensor_Memo.acc_x, acc_y: sensor_Memo.acc_y, acc_z: sensor_Memo.acc_z, 
+                    image:file_name};
+                console.log(formData);
+                await API.graphql({ query: createNoteMutation, variables: { input: formData } });//DB
+                await Storage.put(file_name, imageSrc);//FILE STORAGE
+                setImageSrc(null);
+            }
         }
         send()
+    }
+
+    //際撮影を行うための関数
+    const remove_img = () => {
+        setImageSrc(null);
     }
 
     return (
@@ -38,15 +87,16 @@ const WebcamCapture = () => {
                     onUserMediaError={() => window.alert('cant access your camera')}
                     />
                 </div>
-                <div style= {{align:"center" }}>
-                    <button onClick={capture} style={{width: '100%'}}>Capture!!</button>
+                <div style= {{ width: '30%' , margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 }}>
+                    <Button onClick={use_Sensor}>Capture</Button>
                 </div>
             </div>
         ) : (        
             <div>
                 <img src={imageSrc} alt="webcam capture" />
-                <div align="center">
-                    <button onClick={send_server} style={{width: '100%'}}>Send</button>
+                <div style= {{ width: '30%' , margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 }}>
+                            <Button onClick={send_server}>Send</Button>
+                            <Button onClick={remove_img}>Retake</Button>
                 </div>
             </div>     
         )}
@@ -55,5 +105,3 @@ const WebcamCapture = () => {
 };
 
 export default WebcamCapture;
-
-

@@ -8,7 +8,6 @@ const CameraPermission = () => {
         const { state } = await navigator.permissions.query({ name: 'camera' });
         setHasPermission(state);
     }
-
     getPermission();
     }, []);
 
