@@ -4,24 +4,13 @@ import WebcamCapture from './WebcamCapture';
 import CameraPermission from './CameraPermission';
 import GyroSensor from './GyroSensor';
 import Geolocation from './Geolocation';
+import GyroSensorPermission from './GyroSensorPermission';
 
 import { Amplify } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
 import { withAuthenticator, Button} from '@aws-amplify/ui-react';
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
-
-const get_gyro_permission = () => {
-  // ジャイロセンサーが使用可能だったら
-  if(window.DeviceOrientationEvent){ // ユーザーにアクセスの許可を求める関数があったら（iOS13以降の対応）
-      if(DeviceOrientationEvent.requestPermission){
-          DeviceOrientationEvent.requestPermission();
-      
-      }else{// アクセスの許可を求める関数がなかったら
-          console.log('no permission')
-          }
-      }
-  }
 
 
 function App({user}) {  
@@ -32,7 +21,7 @@ function App({user}) {
         <WebcamCapture user = {user}/>
       </div>
       <div style={styles.container}>
-        <button onClick={get_gyro_permission}>Gyro</button>
+        <GyroSensorPermission />
         <GyroSensor />
         <Geolocation />
       </div>
@@ -49,5 +38,9 @@ const styles = {
   button: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px' }
 }
 
-export const UserCount = createContext({ name: -1, lat:0.0, lng:0.0, acc_x: 0.0,acc_y: 0.0, acc_z: 0.0, image:''})
+export const UserCount = createContext({lat:0.0, lng:0.0, acc_x: 0.0,acc_y: 0.0, acc_z: 0.0})
 export default withAuthenticator(App);
+
+//TODO
+//1.ギャラリー機能の追加
+//2.ゲストユーザでのログイン
