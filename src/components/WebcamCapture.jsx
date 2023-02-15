@@ -3,9 +3,8 @@ import Webcam from "react-webcam";
 import {Button} from '@aws-amplify/ui-react';
 //import { listNotes } from './graphql/queries';
 import { API ,Storage} from 'aws-amplify';
-import { createTodo as createNoteMutation, deleteTodo as deleteNoteMutation } from './graphql/mutations';
-import { useContext} from 'react'
-import { UserCount } from './App'
+import { createTodo as createNoteMutation, deleteTodo as deleteNoteMutation } from '../graphql/mutations';
+import { UserCount } from '../App'
 
 const WebcamCapture = (props) => {
 
@@ -18,6 +17,7 @@ const WebcamCapture = (props) => {
         acc_z : 0
     })
 
+    const username = props.user.username || 'guest' + props.user;
     const webcamRef = React.useRef(null);
 
     //captureボタンが押された際の関数
@@ -52,11 +52,11 @@ const WebcamCapture = (props) => {
             if (imageSrc) {
                 let now = new Date();
                 let file_name = now.getFullYear() + '_' + (now.getMonth() + 1) + '_' + 
-                                now.getDate() + '_' + now.getHours() + '_' + now.getMinutes() + '_' + props.user.username + '.jpeg'
+                                now.getDate() + '_' + now.getHours() + '_' + now.getMinutes() + '_' + username + '.jpeg'
                 let formData = { name: 0, lat: sensor_Memo.lat, lng: sensor_Memo.lng, 
                     acc_x: sensor_Memo.acc_x, acc_y: sensor_Memo.acc_y, acc_z: sensor_Memo.acc_z, 
                     image:file_name};
-                console.log(formData);
+                //console.log(formData);
                 await API.graphql({ query: createNoteMutation, variables: { input: formData } });//DB
                 await Storage.put(file_name, imageSrc);//FILE STORAGE
                 setImageSrc(null);

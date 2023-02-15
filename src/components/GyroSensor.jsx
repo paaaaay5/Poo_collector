@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { UserCount } from './App'
+import { UserCount } from '../App'
 
 const GyroSensor = () => {
     //const UserContext = useContext(UserContext)

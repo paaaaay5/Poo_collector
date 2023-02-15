@@ -14,7 +14,9 @@ const get_gyro_permission = () => {
     }
 
     return (
-    <button onClick={get_gyro_permission}>Gyro</button>
+    <>
+        <button onClick={get_gyro_permission}>Gyro permission</button>
+    </>
     )
 }
 

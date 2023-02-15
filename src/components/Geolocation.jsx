@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext} from 'react';
-import { UserCount} from './App'
+import React, { useState, useEffect} from 'react';
+import { UserCount} from '../App'
 
 const Geolocation = () => {
   const [location, setLocation] = useState({
