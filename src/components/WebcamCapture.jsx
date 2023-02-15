@@ -87,14 +87,14 @@ const WebcamCapture = (props) => {
                     onUserMediaError={() => window.alert('cant access your camera')}
                     />
                 </div>
-                <div style= {{ width: '30%' , margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 }}>
+                <div style= {{ width: '50%' , margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 }}>
                     <Button onClick={use_Sensor}>Capture</Button>
                 </div>
             </div>
         ) : (        
             <div>
                 <img src={imageSrc} alt="webcam capture" />
-                <div style= {{ width: '30%' , margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 }}>
+                <div style= {{ width: '50%' , margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 }}>
                             <Button onClick={send_server}>Send</Button>
                             <Button onClick={remove_img}>Retake</Button>
                 </div>

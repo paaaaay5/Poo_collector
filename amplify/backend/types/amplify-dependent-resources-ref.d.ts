@@ -10,6 +10,7 @@ export type AmplifyDependentResourcesAttributes = {
     "poohostingcc568e94": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
+      "CreatedSNSRole": "string",
       "IdentityPoolId": "string",
       "IdentityPoolName": "string",
       "UserPoolArn": "string",

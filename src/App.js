@@ -49,8 +49,14 @@ function LOGIN(){
   const navigate = useNavigate();
   return (
     <>
-      <Button onClick={() => navigate('/guest')}>ゲストユーザ</Button>
-      <Button onClick={() => navigate('/home')}>ログイン</Button>
+    <div style = {{textalign: 'center'}}>
+      <div style= {{ width: '50%' , margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 }}>
+        <Button onClick={() => navigate('/guest')}>ゲスト</Button>
+      </div>
+      <div style= {{ width: '50%' , margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 }}>
+        <Button onClick={() => navigate('/home')}>ログイン</Button>
+      </div>
+    </div>
     </>
   )
 }

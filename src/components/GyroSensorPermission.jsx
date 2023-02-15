@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from '@aws-amplify/ui-react';
 
 const GyroSensorPermission = () => {
 const get_gyro_permission = () => {
@@ -15,7 +16,9 @@ const get_gyro_permission = () => {
 
     return (
     <>
-        <button onClick={get_gyro_permission}>Gyro permission</button>
+        <div style= {{ width: '50%' , margin: '0 auto',justifyContent: 'center', padding: 20 }}>
+            <Button onClick={get_gyro_permission}>Enable Gyro</Button>
+        </div>
     </>
     )
 }
