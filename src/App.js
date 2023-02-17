@@ -2,38 +2,39 @@ import React, {createContext} from 'react';
 
 import WebcamCapture from './components/WebcamCapture';
 import CameraPermission from './components/CameraPermission';
-
 import GyroSensor from './components/GyroSensor';
 import Geolocation from './components/Geolocation';
-
 import GyroSensorPermission from './components/GyroSensorPermission';
 import { RequireAuth } from './components/RequireAuth';
 import { Login } from './components/Login';
-
+import Box from './components/Box';
+import Header from './components/Header';
 import { BrowserRouter, Route, Routes,useNavigate} from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { Canvas} from '@react-three/fiber'
 
 import { useAuthenticator ,Authenticator, Button } from '@aws-amplify/ui-react'
 import { Amplify } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
-
 Amplify.configure(awsExports);
 
 function Myroutes() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/'element={<LOGIN />} />
+    <div>
+      <Header />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/'element={<LOGIN />} />
           <Route path='/home' element ={
-            <RequireAuth>
-              <Home />
-            </RequireAuth>} />
-        <Route path='/guest' element={<GUEST />} />
-      <Route path="/login" element={<Login />} />
-
-      </Routes>
-        </BrowserRouter>
+              <RequireAuth>
+                <Home />
+              </RequireAuth>} />
+          <Route path='/guest' element={<GUEST />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   )
 }
 
@@ -49,14 +50,21 @@ function LOGIN(){
   const navigate = useNavigate();
   return (
     <>
-    <div style = {{textalign: 'center'}}>
-      <div style= {{ width: '50%' , margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 }}>
-        <Button onClick={() => navigate('/guest')}>ゲスト</Button>
+    <div style={{ width: "100vw", height: "30vh" }}>
+      <Canvas>
+        <ambientLight />
+        <pointLight position={[10, 10, 10]} />
+        <Box position={[0, 0, 0]} />
+      </Canvas>
+    </div>    
+      <div style = {{textalign: 'center'}}>
+        <div style= {{ width: '50%' , margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 }}>
+          <Button onClick={() => navigate('/guest')}>ゲスト</Button>
+        </div>
+        <div style= {{ width: '50%' , margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 }}>
+          <Button onClick={() => navigate('/home')}>ログイン</Button>
+        </div>
       </div>
-      <div style= {{ width: '50%' , margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 }}>
-        <Button onClick={() => navigate('/home')}>ログイン</Button>
-      </div>
-    </div>
     </>
   )
 }
